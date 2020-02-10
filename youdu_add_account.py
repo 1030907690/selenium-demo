@@ -47,13 +47,18 @@ if __name__ == '__main__':
 
             driver.find_element_by_xpath("//input[@id='userName']").send_keys('administrator')
             driver.find_element_by_xpath("//input[@id='passwd']").send_keys(passwd)
-
+            #登陆提交
             driver.find_element_by_xpath("//button[@class='ydbtn ydbtn-primary next']").click()
-            driver.implicitly_wait(7)
+            driver.implicitly_wait(10)
             #print(driver.page_source)
-            driver.find_element_by_xpath("//*[@id=\"modal-version-3-2\"]/div/div[1]/a").click()
+            try:
+                ##关闭弹窗
+                driver.find_element_by_xpath("//*[@id=\"modal-version-3-2\"]/div/div[1]/a").click()
+            except Exception as a3:
+                print(a3)
+            #点击通讯录
             driver.find_element_by_xpath("/html/body/div[3]/div/ul/li[2]/a").click()
-            driver.implicitly_wait(2)
+            driver.implicitly_wait(3)
             driver.find_element_by_xpath("//*[@id=\"dept1\"]/div[2]/a").click()
 
             #新增成员
@@ -67,6 +72,20 @@ if __name__ == '__main__':
                 driver.find_element_by_xpath('//*[@id="f_pwd"]').send_keys('123456')
                 driver.find_element_by_xpath('//*[@id="user_info_edit"]/div[1]/div[2]/button[3]').click()
                 time.sleep(2)
+                try:
+                    close_tips = driver.find_element_by_xpath('//div[@class="box_inner"]/div[3]/button[@class="ydbtn "]')
+                    if close_tips:
+                       print("tip is not null")
+                       close_tips.click()
+                       driver.find_element_by_xpath('//*[@id="f_account"]').clear()
+                       driver.find_element_by_xpath('//*[@id="f_name"]').clear()
+                       driver.find_element_by_xpath('//*[@id="f_pwd"]').clear()
+                except Exception as e2:
+                    print(e2)
+                finally:
+                    print()
+                time.sleep(5)
+
 
             time.sleep(5)
             driver.close()
