@@ -7,7 +7,8 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 import time
-
+import sys
+import platform
 
 '''
 有度添加帐号
@@ -29,7 +30,12 @@ if __name__ == '__main__':
 
     access_url = 'http://120.132.14.121:7080/userportal/login.html'
     passwd = 'test'
+    #驱动程序路径 默认Linux
     executable_path = os.getcwd() + "/driver/chromedriver"
+
+    if "Windows" == platform.system():
+        executable_path = os.getcwd() + "/driver/windows/chromedriver.exe"
+
 
     if len(account_name_list) == len(account_list):
         try:
